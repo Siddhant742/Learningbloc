@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class InternetState{}
+abstract class InternetState{}
 class InternetInitialState extends InternetState{}
 class InternetLostState extends InternetState{}
 class InternetGainedState extends InternetState{}

@@ -1,10 +1,8 @@
 import 'dart:async';
-
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:learningbloc/blocs/Internet_event.dart';
 import 'package:learningbloc/blocs/Internet_state.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 class InternetBloc extends Bloc<InternetEvent, InternetState>{
   StreamSubscription? connectivitySubscription;
@@ -23,6 +21,7 @@ class InternetBloc extends Bloc<InternetEvent, InternetState>{
     });
 
   }
+
   @override
   Future<void> close() {
     connectivitySubscription?.cancel();

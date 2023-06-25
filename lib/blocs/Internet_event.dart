@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
 
-class InternetEvent{}
+abstract class InternetEvent{}
 class InternetGainedEvent extends InternetEvent{}
 class InternetLostEvent extends InternetEvent{}
