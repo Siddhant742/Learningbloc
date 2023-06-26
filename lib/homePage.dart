@@ -11,18 +11,29 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Center(
-          child: BlocBuilder<InternetBloc, InternetState>(builder: (BuildContext context, state) {
-            print(state);
-            if(state is InternetLostState){
-              return Text('Internet is lost!');
-            }
-            else if(state is InternetGainedState){
-              return Text('Internet is connected!');
-            }
-            else{
-              return Text('Loading...');
-            }
-          },
+          child: BlocConsumer<InternetBloc, InternetState>(
+            listener:(BuildContext context, state){
+              if (state is InternetGainedState) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Internet is connected'),
+                      backgroundColor: Colors.green,));
+              }
+              if(state is InternetLostState){
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Internet is disconnected'),
+                backgroundColor: Colors.red,));
+              }
+            },
+            builder: (BuildContext context, state) {
+              if(state is InternetLostState){
+                return Text('Internet is lost!');
+              }
+              else if(state is InternetGainedState){
+                return Text('Internet is connected!');
+              }
+              else{
+                return Text('Loading...');
+              }
+            },
           ),
         ),
       ),
