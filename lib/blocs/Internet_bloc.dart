@@ -7,11 +7,12 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 class InternetBloc extends Bloc<InternetEvent, InternetState>{
   StreamSubscription? connectivitySubscription;
   Connectivity _connectivity = Connectivity();
-  InternetBloc() : super(InternetInitialState()){
-    on<InternetGainedEvent>((event, emit) => InternetGainedState());
-    on<InternetLostEvent>((event, emit) => InternetLostState());
 
-    _connectivity.onConnectivityChanged.listen((resultEvent) {
+  InternetBloc() : super(InternetInitialState()){
+    on<InternetGainedEvent>((event, emit) => emit(InternetGainedState()));
+    on<InternetLostEvent>((event, emit) => emit(InternetLostState()));
+
+    connectivitySubscription = _connectivity.onConnectivityChanged.listen((resultEvent) {
       if(resultEvent == ConnectivityResult.mobile || resultEvent == ConnectivityResult.wifi){
         add(InternetGainedEvent());
       }
